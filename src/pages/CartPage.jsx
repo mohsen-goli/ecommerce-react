@@ -1,11 +1,18 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Trash2, Minus, Plus, ShoppingBag, ArrowLeft } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { useToast } from "../components/ToastProvider";
 
 function CartPage() {
   const { cart, cartTotal, increaseCart, decreaseCart, removeFromCart } =
     useCart();
+  const { showSuccess } = useToast();
   const navigate = useNavigate();
+
+  function handleRemove(id, name) {
+    removeFromCart(id);
+    showSuccess(`${name} removed from cart`);
+  }
 
   if (cart.length === 0) {
     return (
@@ -59,7 +66,7 @@ function CartPage() {
 
               <button
                 className="remove-btn"
-                onClick={() => removeFromCart(item.id)}
+                onClick={() => handleRemove(item.id, item.name)}
                 aria-label="Remove"
               >
                 <Trash2 size={18} />

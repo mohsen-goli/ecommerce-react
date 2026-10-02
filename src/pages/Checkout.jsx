@@ -2,9 +2,11 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { useToast } from "../components/ToastProvider";
 
 function Checkout() {
   const { cart, cartTotal, clearCart } = useCart();
+  const { showSuccess } = useToast();
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -25,17 +27,20 @@ function Checkout() {
 
     if (cart.length === 0) return;
 
-    // اینجا می‌تونی به API وصل کنی
     console.log("Order:", { customer: form, items: cart, total: cartTotal });
 
-    clearCart();
-    navigate("/success");
+    showSuccess("Order placed successfully! 🌹");
+
+    setTimeout(() => {
+      clearCart();
+      navigate("/success");
+    }, 600);
   }
 
   if (cart.length === 0) {
     return (
       <div className="not-found">
-        <h2>سبد خریدت خالیه</h2>
+        <h2>Your cart is empty</h2>
         <Link to="/" className="btn-primary">
           Back to Shop
         </Link>
