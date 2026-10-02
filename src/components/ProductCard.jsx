@@ -1,56 +1,33 @@
-import { useState } from "react";
+import { Link } from "react-router-dom";
+import { ShoppingBag, Star } from "lucide-react";
 
-function ProductCard({ id, name, price, onAddToCart }) {
-  const [quantity, setQuantity] = useState(1);
-  const [isAdded, setIsAdded] = useState(false);
-
-  function handleIncrease() {
-    setQuantity((currentQuantity) => currentQuantity + 1);
-  }
-
-  function handleDecrease() {
-    setQuantity((currentQuantity) => {
-      if (currentQuantity === 1) {
-        return 1;
-      }
-
-      return currentQuantity - 1;
-    });
-  }
-
-  function handleAddToCart() {
-    onAddToCart({
-      id,
-      name,
-      price,
-      quantity,
-    });
-
-    setIsAdded(true);
+function ProductCard({ product, onAddToCart }) {
+  function handleAdd(e) {
+    e.preventDefault();
+    onAddToCart({ ...product, quantity: 1 });
   }
 
   return (
-    <div className="product-card">
-      <div className="product-image">Beauty Product</div>
+    <Link to={`/product/${product.id}`} className="product-card">
+      <div className="product-image">
+        <img src={product.image} alt={product.name} />
+      </div>
 
       <div className="product-info">
-        <h3>{name}</h3>
+        <h3>{product.name}</h3>
 
-        <p>Beauty & skincare product</p>
+        <div className="product-rating small">
+          <Star size={13} fill="#E8A0A8" stroke="#E8A0A8" />
+          <span>{product.rating}</span>
+        </div>
 
-        <strong>${price}</strong>
+        <strong>${product.price}</strong>
 
-        <p>Quantity: {quantity}</p>
-
-        <button onClick={handleDecrease}>-</button>
-
-        <button onClick={handleIncrease}>+</button>
-
-        <button onClick={handleAddToCart}>
-          {isAdded ? "✓ Added to Cart" : "Add to Cart"}
+        <button className="add-to-cart-button" onClick={handleAdd}>
+          <ShoppingBag size={15} /> Add to Cart
         </button>
       </div>
-    </div>
+    </Link>
   );
 }
 

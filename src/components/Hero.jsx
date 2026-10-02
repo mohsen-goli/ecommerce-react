@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Hero() {
   return (
     <section className="hero">
@@ -14,11 +16,13 @@ function Hero() {
           routine.
         </p>
 
-        <button className="hero-button">Shop Collection</button>
+        <Link to="/category/skincare" className="btn-primary btn-large">
+          Shop Collection
+        </Link>
       </div>
 
       <div className="hero-image">
-        <span>LUNEA</span>
+        <img src="/Images/hero/luna-hero.jpg" alt="ROSA Beauty" />
       </div>
     </section>
   );

@@ -4,18 +4,24 @@ function Categories() {
   const categories = [
     {
       id: 1,
+      slug: "skincare",
       name: "Skincare",
       description: "Serums, creams and daily essentials",
+      image: "/Images/categories/Skincare.jpg",
     },
     {
       id: 2,
+      slug: "makeup",
       name: "Makeup",
       description: "Lipsticks, foundations and more",
+      image: "/Images/categories/makeup.jpg",
     },
     {
       id: 3,
+      slug: "body-care",
       name: "Body Care",
       description: "Everyday care for your skin",
+      image: "/Images/categories/Body-Care.jpg",
     },
   ];
 
@@ -23,17 +29,12 @@ function Categories() {
     <section className="categories">
       <div className="section-heading">
         <p>SHOP BY CATEGORY</p>
-
         <h2>Find what you need</h2>
       </div>
 
       <div className="category-grid">
         {categories.map((category) => (
-          <CategoryCard
-            key={category.id}
-            name={category.name}
-            description={category.description}
-          />
+          <CategoryCard key={category.id} {...category} />
         ))}
       </div>
     </section>

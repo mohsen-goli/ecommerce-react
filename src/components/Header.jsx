@@ -1,22 +1,28 @@
-function Header({ cartCount }) {
+import { Link } from "react-router-dom";
+import { ShoppingBag } from "lucide-react";
+import { useCart } from "../context/CartContext";
+
+function Header() {
+  const { cartCount } = useCart();
+
   return (
     <header className="site-header">
       <div className="header-container">
-        <a href="/" className="logo">
-          LUNEA
-        </a>
+        <Link to="/" className="logo">
+          ROSA
+        </Link>
 
         <nav className="main-nav">
-          <a href="#home">Home</a>
-          <a href="#shop">Shop</a>
-          <a href="#skincare">Skincare</a>
-          <a href="#makeup">Makeup</a>
+          <Link to="/">Home</Link>
+          <Link to="/category/skincare">Skincare</Link>
+          <Link to="/category/makeup">Makeup</Link>
         </nav>
 
-        <button className="cart-button">
-          🛒 Cart
-          <span>{cartCount}</span>
-        </button>
+        <Link to="/cart" className="cart-button">
+          <ShoppingBag size={18} />
+          <span>Cart</span>
+          <span className="cart-count">{cartCount}</span>
+        </Link>
       </div>
     </header>
   );
