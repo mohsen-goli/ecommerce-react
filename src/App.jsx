@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
+import { ToastProvider } from "./components/ToastProvider";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -12,22 +13,24 @@ import Success from "./pages/Success";
 function App() {
   return (
     <BrowserRouter>
-      <CartProvider>
-        <Header />
+      <ToastProvider>
+        <CartProvider>
+          <Header />
 
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/category/:category" element={<CategoryPage />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/success" element={<Success />} />
-          </Routes>
-        </main>
+          <main>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/category/:category" element={<CategoryPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/success" element={<Success />} />
+            </Routes>
+          </main>
 
-        <Footer />
-      </CartProvider>
+          <Footer />
+        </CartProvider>
+      </ToastProvider>
     </BrowserRouter>
   );
 }

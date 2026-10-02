@@ -3,12 +3,14 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { Star, Minus, Plus, ArrowLeft, ShoppingBag } from "lucide-react";
 import { getProductById, products } from "../data/products";
 import { useCart } from "../context/CartContext";
+import { useToast } from "../components/ToastProvider";
 import ProductCard from "../components/ProductCard";
 
 function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const { showSuccess } = useToast();
 
   const product = getProductById(id);
   const [quantity, setQuantity] = useState(1);
@@ -30,7 +32,8 @@ function ProductDetail() {
 
   function handleAddToCart() {
     addToCart({ ...product, quantity });
-    navigate("/cart");
+    showSuccess(`${quantity} × ${product.name} added to cart`);
+    setTimeout(() => navigate("/cart"), 400);
   }
 
   return (

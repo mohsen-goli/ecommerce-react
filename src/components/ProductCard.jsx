@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import { ShoppingBag, Star } from "lucide-react";
+import { useToast } from "./ToastProvider";
 
 function ProductCard({ product, onAddToCart }) {
+  const { showSuccess } = useToast();
+
   function handleAdd(e) {
     e.preventDefault();
     onAddToCart({ ...product, quantity: 1 });
+    showSuccess(`${product.name} added to cart`);
   }
 
   return (
