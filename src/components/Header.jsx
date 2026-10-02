@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import SearchBar from "./SearchBar";
 
 function Header() {
   const { cartCount } = useCart();
@@ -18,11 +19,15 @@ function Header() {
           <Link to="/category/makeup">Makeup</Link>
         </nav>
 
-        <Link to="/cart" className="cart-button">
-          <ShoppingBag size={18} />
-          <span>Cart</span>
-          <span className="cart-count">{cartCount}</span>
-        </Link>
+        <div className="header-actions">
+          <SearchBar />
+
+          <Link to="/cart" className="cart-button">
+            <ShoppingBag size={18} />
+            <span>Cart</span>
+            <span className="cart-count">{cartCount}</span>
+          </Link>
+        </div>
       </div>
     </header>
   );
