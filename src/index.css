@@ -1011,3 +1011,80 @@ main {
     grid-template-columns: 1fr;
   }
 }
+/* ============ TOAST ============ */
+.rosa-toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  background: white;
+  border-radius: 999px;
+  box-shadow:
+    0 10px 30px rgba(232, 160, 168, 0.25),
+    0 4px 12px rgba(0, 0, 0, 0.06);
+  font-size: 14px;
+  font-weight: 500;
+  color: #2d2926;
+  min-width: 280px;
+  max-width: 420px;
+  border: 1px solid #f7e6e8;
+  transition: all 0.3s ease;
+}
+
+.rosa-toast.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.rosa-toast.hide {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+}
+
+.rosa-toast-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.rosa-toast-icon.success {
+  background: #e8a0a8;
+}
+
+.rosa-toast-icon.error {
+  background: #c0392b;
+}
+
+.rosa-toast-icon.wishlist {
+  background: #e8a0a8;
+}
+
+.rosa-toast-icon.cart {
+  background: #2d2926;
+}
+
+.rosa-toast-message {
+  flex: 1;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 600px) {
+  .rosa-toast {
+    min-width: 0;
+    max-width: calc(100vw - 32px);
+    font-size: 13px;
+    padding: 12px 16px;
+  }
+
+  .rosa-toast-message {
+    white-space: normal;
+  }
+}
