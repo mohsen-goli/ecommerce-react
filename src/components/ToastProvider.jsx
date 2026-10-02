@@ -6,59 +6,70 @@ const ToastContext = createContext();
 
 export function ToastProvider({ children }) {
   function showSuccess(message) {
-    toast.custom(
-      (t) => (
-        <div className={`rosa-toast ${t.visible ? "show" : "hide"}`}>
-          <span className="rosa-toast-icon success">
-            <Check size={16} strokeWidth={3} />
-          </span>
-          <span className="rosa-toast-message">{message}</span>
-        </div>
-      ),
-      { duration: 2200, position: "bottom-right" },
-    );
+    toast.success(message, {
+      duration: 2200,
+      position: "bottom-right",
+      style: {
+        background: "#fff",
+        color: "#2d2926",
+        border: "1px solid #f7e6e8",
+        borderRadius: "999px",
+        padding: "12px 20px",
+        fontSize: "14px",
+        fontWeight: 500,
+        boxShadow: "0 10px 30px rgba(232, 160, 168, 0.25)",
+      },
+      iconTheme: {
+        primary: "#e8a0a8",
+        secondary: "#fff",
+      },
+    });
   }
 
   function showError(message) {
-    toast.custom(
-      (t) => (
-        <div className={`rosa-toast ${t.visible ? "show" : "hide"}`}>
-          <span className="rosa-toast-icon error">
-            <X size={16} strokeWidth={3} />
-          </span>
-          <span className="rosa-toast-message">{message}</span>
-        </div>
-      ),
-      { duration: 2200, position: "bottom-right" },
-    );
+    toast.error(message, {
+      duration: 2200,
+      position: "bottom-right",
+      style: {
+        background: "#fff",
+        color: "#2d2926",
+        border: "1px solid #f7e6e8",
+        borderRadius: "999px",
+        padding: "12px 20px",
+        fontSize: "14px",
+        fontWeight: 500,
+      },
+    });
   }
 
   function showWishlist(message) {
-    toast.custom(
-      (t) => (
-        <div className={`rosa-toast ${t.visible ? "show" : "hide"}`}>
-          <span className="rosa-toast-icon wishlist">
-            <Heart size={16} fill="currentColor" />
-          </span>
-          <span className="rosa-toast-message">{message}</span>
-        </div>
-      ),
-      { duration: 2200, position: "bottom-right" },
-    );
+    toast(message, {
+      duration: 2200,
+      position: "bottom-right",
+      icon: "❤️",
+      style: {
+        background: "#fff",
+        color: "#2d2926",
+        border: "1px solid #f7e6e8",
+        borderRadius: "999px",
+        padding: "12px 20px",
+      },
+    });
   }
 
   function showCart(message) {
-    toast.custom(
-      (t) => (
-        <div className={`rosa-toast ${t.visible ? "show" : "hide"}`}>
-          <span className="rosa-toast-icon cart">
-            <ShoppingBag size={16} />
-          </span>
-          <span className="rosa-toast-message">{message}</span>
-        </div>
-      ),
-      { duration: 2200, position: "bottom-right" },
-    );
+    toast(message, {
+      duration: 2200,
+      position: "bottom-right",
+      icon: "🛒",
+      style: {
+        background: "#fff",
+        color: "#2d2926",
+        border: "1px solid #f7e6e8",
+        borderRadius: "999px",
+        padding: "12px 20px",
+      },
+    });
   }
 
   return (
@@ -69,13 +80,11 @@ export function ToastProvider({ children }) {
 
       <Toaster
         position="bottom-right"
+        containerStyle={{
+          zIndex: 9999,
+        }}
         toastOptions={{
           duration: 2200,
-          style: {
-            background: "transparent",
-            boxShadow: "none",
-            padding: 0,
-          },
         }}
       />
     </ToastContext.Provider>
