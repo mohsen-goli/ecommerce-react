@@ -1363,3 +1363,63 @@ main {
     height: 36px;
   }
 }
+/* ============ SKELETON LOADING ============ */
+.skeleton {
+  background: linear-gradient(90deg, #f5eef0 0%, #f9f4f6 50%, #f5eef0 100%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+@keyframes skeletonShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.skeleton-category-image {
+  width: 100%;
+  height: 220px;
+  border-radius: 0;
+}
+
+.skeleton-title {
+  height: 16px;
+  width: 70%;
+  margin-bottom: 10px;
+}
+
+.skeleton-text {
+  height: 12px;
+  width: 90%;
+  margin-bottom: 12px;
+}
+
+.skeleton-price {
+  height: 18px;
+  width: 40%;
+  margin-bottom: 16px;
+}
+
+.skeleton-button {
+  height: 36px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* اسکلتون توی کارت محصول */
+.product-card .product-image .skeleton {
+  padding: 0;
+  background: linear-gradient(90deg, #f5eef0 0%, #faf5f7 50%, #f5eef0 100%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s ease-in-out infinite;
+}
