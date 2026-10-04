@@ -1,6 +1,5 @@
 import { createContext, useContext } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { Check, X, Heart, ShoppingBag } from "lucide-react";
 
 const ToastContext = createContext();
 
@@ -53,6 +52,8 @@ export function ToastProvider({ children }) {
         border: "1px solid #f7e6e8",
         borderRadius: "999px",
         padding: "12px 20px",
+        fontSize: "14px",
+        fontWeight: 500,
       },
     });
   }
