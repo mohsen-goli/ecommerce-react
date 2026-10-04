@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, Heart } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext";
 import SearchBar from "./SearchBar";
 
 function Header() {
   const { cartCount } = useCart();
+  const { wishlistCount } = useWishlist();
 
   return (
     <header className="site-header">
@@ -21,6 +23,17 @@ function Header() {
 
         <div className="header-actions">
           <SearchBar />
+
+          <Link
+            to="/wishlist"
+            className="wishlist-button"
+            aria-label="Wishlist"
+          >
+            <Heart size={18} />
+            {wishlistCount > 0 && (
+              <span className="wishlist-count">{wishlistCount}</span>
+            )}
+          </Link>
 
           <Link to="/cart" className="cart-button">
             <ShoppingBag size={18} />
