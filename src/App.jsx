@@ -1,7 +1,9 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
 import { ToastProvider } from "./components/ToastProvider";
+import PageTransition from "./components/PageTransition";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -13,6 +15,81 @@ import Success from "./pages/Success";
 import SearchPage from "./pages/SearchPage";
 import WishlistPage from "./pages/WishlistPage";
 
+function AnimatedRoutes() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route
+          path="/"
+          element={
+            <PageTransition>
+              <Home />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/product/:id"
+          element={
+            <PageTransition>
+              <ProductDetail />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/category/:category"
+          element={
+            <PageTransition>
+              <CategoryPage />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/search"
+          element={
+            <PageTransition>
+              <SearchPage />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <PageTransition>
+              <CartPage />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/wishlist"
+          element={
+            <PageTransition>
+              <WishlistPage />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <PageTransition>
+              <Checkout />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/success"
+          element={
+            <PageTransition>
+              <Success />
+            </PageTransition>
+          }
+        />
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
 function App() {
   return (
     <BrowserRouter>
@@ -22,16 +99,7 @@ function App() {
             <Header />
 
             <main>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/product/:id" element={<ProductDetail />} />
-                <Route path="/category/:category" element={<CategoryPage />} />
-                <Route path="/search" element={<SearchPage />} />
-                <Route path="/cart" element={<CartPage />} />
-                <Route path="/wishlist" element={<WishlistPage />} />
-                <Route path="/checkout" element={<Checkout />} />
-                <Route path="/success" element={<Success />} />
-              </Routes>
+              <AnimatedRoutes />
             </main>
 
             <Footer />
