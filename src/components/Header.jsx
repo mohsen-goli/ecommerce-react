@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, Heart } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
@@ -30,15 +31,33 @@ function Header() {
             aria-label="Wishlist"
           >
             <Heart size={18} />
-            {wishlistCount > 0 && (
-              <span className="wishlist-count">{wishlistCount}</span>
-            )}
+            <AnimatePresence>
+              {wishlistCount > 0 && (
+                <motion.span
+                  className="wishlist-count"
+                  key={wishlistCount}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: [0, 1.4, 1] }}
+                  exit={{ scale: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {wishlistCount}
+                </motion.span>
+              )}
+            </AnimatePresence>
           </Link>
 
           <Link to="/cart" className="cart-button">
             <ShoppingBag size={18} />
             <span>Cart</span>
-            <span className="cart-count">{cartCount}</span>
+            <motion.span
+              className="cart-count"
+              key={cartCount}
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ duration: 0.35 }}
+            >
+              {cartCount}
+            </motion.span>
           </Link>
         </div>
       </div>
