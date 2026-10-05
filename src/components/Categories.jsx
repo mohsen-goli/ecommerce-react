@@ -1,4 +1,24 @@
+import { motion } from "framer-motion";
 import CategoryCard from "./CategoryCard";
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 30 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 function Categories() {
   const categories = [
@@ -32,11 +52,19 @@ function Categories() {
         <h2>Find what you need</h2>
       </div>
 
-      <div className="category-grid">
+      <motion.div
+        className="category-grid"
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+      >
         {categories.map((category) => (
-          <CategoryCard key={category.id} {...category} />
+          <motion.div key={category.id} variants={item}>
+            <CategoryCard {...category} />
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }
