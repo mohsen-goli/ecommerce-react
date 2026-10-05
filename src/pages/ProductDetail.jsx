@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Star, Minus, Plus, ArrowLeft, ShoppingBag } from "lucide-react";
+import { motion } from "framer-motion";
 import { getProductById, products } from "../data/products";
 import { useCart } from "../context/CartContext";
 import { useToast } from "../components/ToastProvider";
@@ -42,7 +43,12 @@ function ProductDetail() {
         <ArrowLeft size={18} /> Back
       </Link>
 
-      <div className="product-detail">
+      <motion.div
+        className="product-detail"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      >
         <div className="product-detail-image">
           <img src={product.image} alt={product.name} />
         </div>
@@ -79,9 +85,14 @@ function ProductDetail() {
               </button>
             </div>
 
-            <button className="btn-primary btn-large" onClick={handleAddToCart}>
+            <motion.button
+              className="btn-primary btn-large"
+              onClick={handleAddToCart}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+            >
               <ShoppingBag size={18} /> Add to Cart
-            </button>
+            </motion.button>
           </div>
 
           {product.inStock ? (
@@ -90,7 +101,7 @@ function ProductDetail() {
             <p className="out-stock">✗ Out of Stock</p>
           )}
         </div>
-      </div>
+      </motion.div>
 
       {relatedProducts.length > 0 && (
         <section className="related-products">
