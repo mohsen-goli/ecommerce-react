@@ -1,46 +1,69 @@
+import React from "react";
 import { Link } from "react-router-dom";
-import { Mail, Phone, AtSign } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
+import "./Footer.css";
 
-function Footer() {
+const Footer = () => {
   return (
-    <footer className="site-footer">
-      <div className="footer-container">
-        <div className="footer-col">
-          <h3 className="footer-logo">ROSA</h3>
-          <p>Timeless beauty for your everyday glow.</p>
+    <footer className="footer">
+      <div className="container footer__container">
+        {/* ستون ۱: برند */}
+        <div className="footer__col">
+          <h3 className="footer__logo">ROSA</h3>
+          <p className="footer__desc">
+            Timeless beauty for your everyday glow.
+          </p>
         </div>
 
-        <div className="footer-col">
-          <h4>Shop</h4>
-          <Link to="/category/skincare">Skincare</Link>
-          <Link to="/category/makeup">Makeup</Link>
+        {/* ستون ۲: لینک‌های سریع */}
+        <div className="footer__col">
+          <h4 className="footer__title">Shop</h4>
+          <Link to="/shop" className="footer__link">
+            Skincare
+          </Link>
+          <Link to="/shop" className="footer__link">
+            Makeup
+          </Link>
+          <Link to="/shop" className="footer__link">
+            Body Care
+          </Link>
         </div>
 
-        <div className="footer-col">
-          <h4>Company</h4>
-          <Link to="/">About</Link>
-          <Link to="/">Contact</Link>
+        {/* ستون ۳: شرکت */}
+        <div className="footer__col">
+          <h4 className="footer__title">Company</h4>
+          <Link to="/about" className="footer__link">
+            About
+          </Link>
+          <Link to="/contact" className="footer__link">
+            Contact
+          </Link>
         </div>
 
-        <div className="footer-col">
-          <h4>Contact</h4>
-          <p>
-            <Mail size={14} /> hello@rosa.com
-          </p>
-          <p>
-            <Phone size={14} /> +98 21 1234 5678
-          </p>
-          <p>
-            <AtSign size={14} /> @rosa.beauty
-          </p>
+        {/* ستون ۴: تماس */}
+        <div className="footer__col">
+          <h4 className="footer__title">Contact</h4>
+          <div className="footer__contact-item">
+            <Mail size={16} />
+            <span>hello@rosa.com</span>
+          </div>
+          <div className="footer__contact-item">
+            <Phone size={16} />
+            <span>+98 21 1234 5678</span>
+          </div>
+          <div className="footer__contact-item">
+            <MapPin size={16} />
+            <span>Tehran, Iran</span>
+          </div>
         </div>
       </div>
 
-      <div className="footer-bottom">
+      {/* کپی رایت */}
+      <div className="footer__bottom">
         <p>© 2026 ROSA. All rights reserved.</p>
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;

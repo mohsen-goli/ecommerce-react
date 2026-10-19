@@ -4,12 +4,14 @@
   color: var(--color-white);
   font-size: 12px;
   padding: var(--spacing-sm) 0;
+  width: 100%;
 }
 
 .top-bar__container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 var(--spacing-lg);
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 var(--spacing-lg) !important;
   display: flex;
   justify-content: space-between;
   align-items: center;
