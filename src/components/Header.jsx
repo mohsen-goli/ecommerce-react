@@ -1,68 +1,96 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, Heart } from "lucide-react";
+import { Search, User, ShoppingBag, Menu, X } from "lucide-react";
 import { useCart } from "../context/CartContext";
-import { useWishlist } from "../context/WishlistContext";
-import SearchBar from "./SearchBar";
+import TopBar from "./TopBar";
+import "./Header.css";
 
-function Header() {
-  const { cartCount } = useCart();
-  const { wishlistCount } = useWishlist();
+const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { cartCount } = useCart(); // استفاده از Custom Hook
 
   return (
-    <header className="site-header">
-      <div className="header-container">
-        <Link to="/" className="logo">
-          ROSA
-        </Link>
+    <>
+      <TopBar />
+      <header className="header">
+        <div className="header__container">
+          {/* لوگو */}
+          <Link to="/" className="header__logo">
+            ROSA
+          </Link>
 
-        <nav className="main-nav">
-          <Link to="/">Home</Link>
-          <Link to="/category/skincare">Skincare</Link>
-          <Link to="/category/makeup">Makeup</Link>
-        </nav>
+          {/* منوی دسکتاپ */}
+          <nav className="header__nav">
+            <Link to="/" className="header__link">
+              Home
+            </Link>
+            <Link to="/shop" className="header__link">
+              Shop
+            </Link>
+            <Link to="/skincare" className="header__link">
+              Skincare
+            </Link>
+            <Link to="/makeup" className="header__link">
+              Makeup
+            </Link>
+            <Link to="/about" className="header__link">
+              About Us
+            </Link>
+            <Link to="/blog" className="header__link">
+              Blog
+            </Link>
+          </nav>
 
-        <div className="header-actions">
-          <SearchBar />
-
-          <Link
-            to="/wishlist"
-            className="wishlist-button"
-            aria-label="Wishlist"
-          >
-            <Heart size={18} />
-            <AnimatePresence>
-              {wishlistCount > 0 && (
-                <motion.span
-                  className="wishlist-count"
-                  key={wishlistCount}
-                  initial={{ scale: 0 }}
-                  animate={{ scale: [0, 1.4, 1] }}
-                  exit={{ scale: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {wishlistCount}
-                </motion.span>
+          {/* آیکون‌ها */}
+          <div className="header__actions">
+            <button className="header__icon-btn" aria-label="Search">
+              <Search size={20} />
+            </button>
+            <button className="header__icon-btn" aria-label="Profile">
+              <User size={20} />
+            </button>
+            <Link to="/cart" className="header__icon-btn header__cart-btn">
+              <ShoppingBag size={20} />
+              {cartCount > 0 && (
+                <span className="header__cart-count">{cartCount}</span>
               )}
-            </AnimatePresence>
-          </Link>
-
-          <Link to="/cart" className="cart-button">
-            <ShoppingBag size={18} />
-            <span>Cart</span>
-            <motion.span
-              className="cart-count"
-              key={cartCount}
-              animate={{ scale: [1, 1.3, 1] }}
-              transition={{ duration: 0.35 }}
+            </Link>
+            {/* دکمه منوی موبایل */}
+            <button
+              className="header__icon-btn header__menu-toggle"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              {cartCount}
-            </motion.span>
-          </Link>
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
-      </div>
-    </header>
+
+        {/* منوی موبایل */}
+        {isMenuOpen && (
+          <div className="header__mobile-menu">
+            <Link to="/" className="header__mobile-link">
+              Home
+            </Link>
+            <Link to="/shop" className="header__mobile-link">
+              Shop
+            </Link>
+            <Link to="/skincare" className="header__mobile-link">
+              Skincare
+            </Link>
+            <Link to="/makeup" className="header__mobile-link">
+              Makeup
+            </Link>
+            <Link to="/about" className="header__mobile-link">
+              About Us
+            </Link>
+            <Link to="/blog" className="header__mobile-link">
+              Blog
+            </Link>
+          </div>
+        )}
+      </header>
+    </>
   );
-}
+};
 
 export default Header;
