@@ -10,12 +10,12 @@ import {
 } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import ProductCard from "../components/ProductCard";
+import BrandsCarousel from "../components/BrandsCarousel"; // 👈 ایمپورت جدید
 import { products } from "../data/products";
 import "./Home.css";
 
 function Home() {
   const { addToCart } = useCart();
-  // فقط ۴ محصول اول رو نمایش می‌دیم
   const featuredProducts = products ? products.slice(0, 4) : [];
 
   return (
@@ -54,7 +54,6 @@ function Home() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            {/* مسیر دقیق عکس Hero بر اساس پوشه شما */}
             <img
               src="/Images/hero/luna-hero.jpg"
               alt="Natural Beauty"
@@ -64,7 +63,10 @@ function Home() {
         </div>
       </section>
 
-      {/* --- ۲. نوار مزیت‌ها (Features Bar) --- */}
+      {/* 👇 ۲. کراسل برندها (اضافه شده) */}
+      <BrandsCarousel />
+
+      {/* --- ۳. نوار مزیت‌ها (Features Bar) --- */}
       <section className="features-bar">
         <div className="container features-bar__container">
           <div className="feature-item">
@@ -98,7 +100,7 @@ function Home() {
         </div>
       </section>
 
-      {/* --- ۳. دسته‌بندی‌ها (Categories) --- */}
+      {/* --- ۴. دسته‌بندی‌ها (Categories) --- */}
       <section className="section categories">
         <div className="container">
           <div className="section__header">
@@ -136,7 +138,7 @@ function Home() {
         </div>
       </section>
 
-      {/* --- ۴. محصولات ویژه (Best Sellers) --- */}
+      {/* --- ۵. محصولات ویژه (Best Sellers) --- */}
       <section className="section featured-products">
         <div className="container">
           <div className="section__header">
