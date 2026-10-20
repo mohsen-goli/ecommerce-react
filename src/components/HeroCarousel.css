@@ -1,0 +1,54 @@
+/* src/components/HeroCarousel.css */
+.hero-carousel {
+  position: relative;
+  width: 100%;
+  /* 👇 تغییر نسبت از 4/5 (عمودی) به 5/4 (افقی) تا با عکس‌های تو هماهنگ بشه */
+  aspect-ratio: 5 / 4;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  background-color: var(--color-bg-secondary);
+}
+
+.hero-carousel__image {
+  width: 100%;
+  height: 100%;
+  /* 👇 حالا با cover، عکس کاملاً کادر رو پر می‌کنه و چون کادر افقیه، بریده هم نمیشه */
+  object-fit: cover;
+  object-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* نقطه‌های پایین */
+.hero-carousel__dots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 6px 12px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.hero-carousel__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.hero-carousel__dot.active {
+  background-color: var(--color-text-main);
+  width: 24px;
+  border-radius: 10px;
+}

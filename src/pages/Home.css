@@ -27,7 +27,7 @@
   text-transform: uppercase;
 }
 
-/* --- ۱. هیرو --- */
+/* --- ۱. هیرو (چیدمان جدید) --- */
 .hero {
   background-color: var(--color-bg-secondary);
   padding: var(--spacing-2xl) 0;
@@ -36,9 +36,10 @@
 
 .hero__container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* 👇 ۳۵ درصد برای متن، ۶۵ درصد برای عکس (عکس به سمت چپ کشیده شد) */
+  grid-template-columns: 35% 65%;
   align-items: center;
-  gap: var(--spacing-2xl);
+  gap: var(--spacing-xl);
 }
 
 .hero__subtitle {
@@ -51,7 +52,7 @@
 }
 
 .hero__title {
-  font-size: 56px;
+  font-size: 48px;
   line-height: 1.1;
   margin-bottom: var(--spacing-md);
 }
@@ -61,29 +62,22 @@
 }
 
 .hero__description {
-  font-size: 16px;
+  font-size: 15px;
   color: var(--color-text-muted);
-  max-width: 400px;
   margin-bottom: var(--spacing-xl);
 }
 
 .hero__actions {
   display: flex;
   gap: var(--spacing-md);
+  flex-wrap: wrap;
 }
 
 .hero__image-wrapper {
   width: 100% !important;
-  aspect-ratio: 4 / 5;
+  height: 100%;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
-}
-
-.hero__image {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
 }
 
 /* --- ۲. نوار مزیت‌ها --- */
@@ -163,7 +157,7 @@
 /* --- ۴. گرید محصولات --- */
 .products-grid {
   display: grid !important;
-  grid-template-columns: repeat(4, 1fr) !important; /* 👈 دقیقاً ۴ ستون مساوی */
+  grid-template-columns: repeat(4, 1fr) !important;
   gap: var(--spacing-lg) !important;
   align-items: stretch !important;
 }
@@ -209,9 +203,6 @@
   }
   .hero__title {
     font-size: 40px;
-  }
-  .hero__description {
-    margin: 0 auto var(--spacing-xl);
   }
   .hero__actions {
     justify-content: center;
