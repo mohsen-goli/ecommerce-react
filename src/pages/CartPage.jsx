@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -7,8 +8,10 @@ import {
   ShoppingBag,
   ShieldCheck,
   Truck,
+  Tag,
 } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { useToast } from "../components/ToastProvider";
 import "./CartPage.css";
 
 function CartPage() {
@@ -20,7 +23,26 @@ function CartPage() {
     cartTotal,
     clearCart,
   } = useCart();
+  const { showSuccess, showError } = useToast();
   const navigate = useNavigate();
+
+  const [promoCode, setPromoCode] = useState("");
+  const [discount, setDiscount] = useState(0); // درصد تخفیف
+  const [appliedCode, setAppliedCode] = useState("");
+
+  const handleApplyPromo = () => {
+    if (promoCode.trim().toUpperCase() === "GLOW20") {
+      setDiscount(20);
+      setAppliedCode("GLOW20");
+      showSuccess("Promo code applied! 20% off.");
+    } else {
+      showError("Invalid promo code.");
+    }
+    setPromoCode("");
+  };
+
+  const discountAmount = (cartTotal * discount) / 100;
+  const finalTotal = cartTotal - discountAmount;
 
   // اگر سبد خرید خالیه
   if (cart.length === 0) {
@@ -43,7 +65,6 @@ function CartPage() {
   return (
     <div className="cart-page">
       <div className="container">
-        {/* لینک بازگشت */}
         <Link to="/" className="back-link">
           <ArrowLeft size={18} /> Continue Shopping
         </Link>
@@ -106,10 +127,47 @@ function CartPage() {
           <div className="cart-summary">
             <h3 className="cart-summary__title">Order Summary</h3>
 
+            {/* کد تخفیف */}
+            <div className="promo-code-section">
+              <div className="promo-input-group">
+                <Tag size={16} className="promo-icon" />
+                <input
+                  type="text"
+                  placeholder="Promo code"
+                  value={promoCode}
+                  onChange={(e) => setPromoCode(e.target.value)}
+                  className="promo-input"
+                />
+                <button className="promo-btn" onClick={handleApplyPromo}>
+                  Apply
+                </button>
+              </div>
+              {appliedCode && (
+                <div className="promo-applied">
+                  <span>✓ {appliedCode} applied</span>
+                  <button
+                    onClick={() => {
+                      setDiscount(0);
+                      setAppliedCode("");
+                    }}
+                  >
+                    Remove
+                  </button>
+                </div>
+              )}
+            </div>
+
             <div className="cart-summary__row">
               <span>Subtotal</span>
               <span>${cartTotal.toFixed(2)}</span>
             </div>
+
+            {discount > 0 && (
+              <div className="cart-summary__row discount-row">
+                <span>Discount ({discount}%)</span>
+                <span>-${discountAmount.toFixed(2)}</span>
+              </div>
+            )}
 
             <div className="cart-summary__row">
               <span>Shipping</span>
@@ -120,7 +178,7 @@ function CartPage() {
 
             <div className="cart-summary__row cart-summary__total">
               <span>Total</span>
-              <span>${cartTotal.toFixed(2)}</span>
+              <span>${finalTotal.toFixed(2)}</span>
             </div>
 
             <button
