@@ -6,6 +6,8 @@ import { ToastProvider } from "./components/ToastProvider";
 import PageTransition from "./components/PageTransition";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+
+// Pages
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
 import CategoryPage from "./pages/CategoryPage";
@@ -14,7 +16,9 @@ import Checkout from "./pages/Checkout";
 import Success from "./pages/Success";
 import SearchPage from "./pages/SearchPage";
 import WishlistPage from "./pages/WishlistPage";
-import NotFound from "./pages/NotFound"; // 👈 این ایمپورت باید باشه
+import About from "./pages/About"; // 👈 اضافه شد
+import Blog from "./pages/Blog"; // 👈 اضافه شد
+import NotFound from "./pages/NotFound";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -86,8 +90,24 @@ function AnimatedRoutes() {
             </PageTransition>
           }
         />
+        <Route
+          path="/about"
+          element={
+            <PageTransition>
+              <About />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/blog"
+          element={
+            <PageTransition>
+              <Blog />
+            </PageTransition>
+          }
+        />
 
-        {/* 👇 این خط باید آخرین Route باشه */}
+        {/* 👇 این خط باید همیشه آخرین Route باشه */}
         <Route
           path="*"
           element={
