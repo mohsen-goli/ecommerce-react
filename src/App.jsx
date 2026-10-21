@@ -14,6 +14,7 @@ import Checkout from "./pages/Checkout";
 import Success from "./pages/Success";
 import SearchPage from "./pages/SearchPage";
 import WishlistPage from "./pages/WishlistPage";
+import NotFound from "./pages/NotFound"; // 👈 این ایمپورت باید باشه
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -85,6 +86,16 @@ function AnimatedRoutes() {
             </PageTransition>
           }
         />
+
+        {/* 👇 این خط باید آخرین Route باشه */}
+        <Route
+          path="*"
+          element={
+            <PageTransition>
+              <NotFound />
+            </PageTransition>
+          }
+        />
       </Routes>
     </AnimatePresence>
   );
@@ -97,11 +108,9 @@ function App() {
         <CartProvider>
           <WishlistProvider>
             <Header />
-
             <main>
               <AnimatedRoutes />
             </main>
-
             <Footer />
           </WishlistProvider>
         </CartProvider>
