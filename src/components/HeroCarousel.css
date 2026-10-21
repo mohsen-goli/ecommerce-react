@@ -7,6 +7,9 @@
   height: 100%;
   z-index: 0;
   overflow: hidden;
+  background-color: var(
+    --color-bg-secondary
+  ); /* پس‌زمینه کرم برای زمان‌هایی که عکس کامل کادر رو پر نمی‌کنه */
 }
 
 .hero-carousel-bg__slide {
@@ -18,8 +21,10 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  transition: background-image 0.5s ease;
 }
 
+/* لایه‌ی گرادیان */
 .hero-carousel-bg__overlay {
   position: absolute;
   top: 0;
@@ -65,15 +70,30 @@
   border-radius: 10px;
 }
 
+/* =========================================
+   ریسپانسیو موبایل: نمایش کامل عکس بدون زوم
+   ========================================= */
 @media (max-width: 900px) {
+  /* گرادیان رو عمودی می‌کنیم تا متن روی پس‌زمینه روشن قرار بگیره */
   .hero-carousel-bg__overlay {
     background: linear-gradient(
       180deg,
       rgba(253, 251, 247, 0.4) 0%,
-      rgba(253, 251, 247, 0.8) 50%,
+      rgba(253, 251, 247, 0.6) 50%,
       rgba(253, 251, 247, 0.4) 100%
     );
   }
+
+  /* عکس رو به contain تغییر می‌دیم تا کامل دیده بشه (زوم نشه) */
+  .hero-carousel-bg__slide {
+    background-size: contain !important;
+    background-position: center center !important;
+    background-color: var(
+      --color-bg-secondary
+    ) !important; /* فضای خالی با رنگ کرم پر میشه */
+  }
+
+  /* نقطه‌ها رو وسط‌چین می‌کنیم */
   .hero-carousel-bg__dots {
     bottom: 20px;
     right: 50%;
