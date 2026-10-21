@@ -14,39 +14,33 @@ const HeroCarousel = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 4000);
-
+    }, 5000);
     return () => clearInterval(interval);
   }, [images.length]);
 
-  const variants = {
-    enter: { opacity: 0, scale: 1.02 },
-    center: { opacity: 1, scale: 1 },
-    exit: { opacity: 0, scale: 0.98 },
-  };
-
   return (
-    <div className="hero-carousel">
+    <div className="hero-carousel-bg">
       <AnimatePresence mode="wait">
-        <motion.img
+        <motion.div
           key={currentIndex}
-          src={images[currentIndex]}
-          alt={`Hero Slide ${currentIndex + 1}`}
-          className="hero-carousel__image"
-          variants={variants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{ duration: 0.8, ease: "easeInOut" }}
+          className="hero-carousel-bg__slide"
+          style={{ backgroundImage: `url(${images[currentIndex]})` }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1 }}
         />
       </AnimatePresence>
 
-      {/* دکمه‌های انتخاب عکس */}
-      <div className="hero-carousel__dots">
+      {/* لایه‌ی گرادیان برای خوانایی متن */}
+      <div className="hero-carousel-bg__overlay" />
+
+      {/* نقطه‌های پایین */}
+      <div className="hero-carousel-bg__dots">
         {images.map((_, index) => (
           <button
             key={index}
-            className={`hero-carousel__dot ${index === currentIndex ? "active" : ""}`}
+            className={`hero-carousel-bg__dot ${index === currentIndex ? "active" : ""}`}
             onClick={() => setCurrentIndex(index)}
             aria-label={`Go to slide ${index + 1}`}
           />

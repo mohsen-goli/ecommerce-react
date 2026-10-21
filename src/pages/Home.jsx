@@ -10,19 +10,22 @@ import {
 } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import ProductCard from "../components/ProductCard";
-import BrandsCarousel from "../components/BrandsCarousel"; // 👈 ایمپورت جدید
+import BrandsCarousel from "../components/BrandsCarousel";
+import HeroCarousel from "../components/HeroCarousel"; // 👈 ایمپورت جدید
 import { products } from "../data/products";
 import "./Home.css";
-import HeroCarousel from "../components/HeroCarousel";
+
 function Home() {
   const { addToCart } = useCart();
   const featuredProducts = products ? products.slice(0, 4) : [];
 
   return (
     <div className="home">
-      {/* --- ۱. بخش هیرو (Hero) --- */}
-      {/* --- ۱. بخش هیرو (Hero) --- */}
+      {/* --- ۱. بخش هیرو (Full Background) --- */}
       <section className="hero">
+        {/* عکس‌های کراسل به عنوان پس‌زمینه */}
+        <HeroCarousel />
+
         <div className="container hero__container">
           <motion.div
             className="hero__content"
@@ -48,27 +51,13 @@ function Home() {
               </Link>
             </div>
           </motion.div>
-
-          {/* 🔴 تغییر اصلی اینجاست: عکس‌ها رو مستقیم گذاشتم و کشیدگی رو تنظیم کردم */}
-          <motion.div
-            className="hero__image-wrapper"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            style={{ flex: 1.3 }} // 🔴 عکس بزرگتر از متن میشه
-          >
-            {/* اگر میخوای اسلایدر بمونه، این خط رو نگه دار. اگر نه، خط زیر رو باز کن: */}
-            <HeroCarousel />
-
-            {/* <img src="/Images/hero/hero-1.jpg" alt="Beauty" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '12px' }} /> */}
-          </motion.div>
         </div>
       </section>
 
-      {/* 👇 ۲. کراسل برندها (اضافه شده) */}
+      {/* ۲. کراسل برندها */}
       <BrandsCarousel />
 
-      {/* --- ۳. نوار مزیت‌ها (Features Bar) --- */}
+      {/* ۳. نوار مزیت‌ها */}
       <section className="features-bar">
         <div className="container features-bar__container">
           <div className="feature-item">
@@ -102,7 +91,7 @@ function Home() {
         </div>
       </section>
 
-      {/* --- ۴. دسته‌بندی‌ها (Categories) --- */}
+      {/* ۴. دسته‌بندی‌ها */}
       <section className="section categories">
         <div className="container">
           <div className="section__header">
@@ -115,21 +104,18 @@ function Home() {
               </div>
               <h3 className="category-card__title">Skincare</h3>
             </Link>
-
             <Link to="/category/makeup" className="category-card">
               <div className="category-card__image">
                 <img src="/Images/categories/makeup.jpg" alt="Makeup" />
               </div>
               <h3 className="category-card__title">Makeup</h3>
             </Link>
-
             <Link to="/category/bodycare" className="category-card">
               <div className="category-card__image">
                 <img src="/Images/categories/Body-Care.jpg" alt="Body Care" />
               </div>
               <h3 className="category-card__title">Body Care</h3>
             </Link>
-
             <Link to="/category/fragrance" className="category-card">
               <div className="category-card__image">
                 <img src="/Images/categories/fragrance.jpg" alt="Fragrance" />
@@ -140,7 +126,7 @@ function Home() {
         </div>
       </section>
 
-      {/* --- ۵. محصولات ویژه (Best Sellers) --- */}
+      {/* ۵. محصولات ویژه */}
       <section className="section featured-products">
         <div className="container">
           <div className="section__header">

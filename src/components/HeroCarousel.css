@@ -1,42 +1,56 @@
 /* src/components/HeroCarousel.css */
-.hero-carousel {
-  position: relative;
-  width: 100%;
-  /* 👇 تغییر نسبت از 4/5 (عمودی) به 5/4 (افقی) تا با عکس‌های تو هماهنگ بشه */
-  aspect-ratio: 5 / 4;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  background-color: var(--color-bg-secondary);
-}
-
-.hero-carousel__image {
-  width: 100%;
-  height: 100%;
-  /* 👇 حالا با cover، عکس کاملاً کادر رو پر می‌کنه و چون کادر افقیه، بریده هم نمیشه */
-  object-fit: cover;
-  object-position: center;
+.hero-carousel-bg {
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-carousel-bg__slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* گرادیان افقی برای دسکتاپ */
+.hero-carousel-bg__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(247, 242, 236, 0.95) 0%,
+    rgba(247, 242, 236, 0.7) 40%,
+    rgba(247, 242, 236, 0) 100%
+  );
+  z-index: 1;
 }
 
 /* نقطه‌های پایین */
-.hero-carousel__dots {
+.hero-carousel-bg__dots {
   position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 30px;
+  right: 30px;
   display: flex;
   gap: 10px;
   z-index: 10;
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.4);
   padding: 6px 12px;
   border-radius: 20px;
   backdrop-filter: blur(4px);
 }
 
-.hero-carousel__dot {
+.hero-carousel-bg__dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -47,8 +61,26 @@
   padding: 0;
 }
 
-.hero-carousel__dot.active {
+.hero-carousel-bg__dot.active {
   background-color: var(--color-text-main);
   width: 24px;
   border-radius: 10px;
+}
+
+/* --- ریسپانسیو برای موبایل --- */
+@media (max-width: 900px) {
+  .hero-carousel-bg__overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(253, 251, 247, 0.6) 0%,
+      rgba(253, 251, 247, 0.9) 50%,
+      rgba(253, 251, 247, 0.6) 100%
+    );
+  }
+
+  .hero-carousel-bg__dots {
+    bottom: 20px;
+    right: 50%;
+    transform: translateX(50%);
+  }
 }
