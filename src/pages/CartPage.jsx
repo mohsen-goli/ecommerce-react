@@ -12,11 +12,14 @@ import {
 } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useToast } from "../components/ToastProvider";
+import { products } from "../data/products";
+import ProductCard from "../components/ProductCard";
 import "./CartPage.css";
 
 function CartPage() {
   const {
     cart,
+    addToCart,
     increaseCart,
     decreaseCart,
     removeFromCart,
@@ -27,7 +30,7 @@ function CartPage() {
   const navigate = useNavigate();
 
   const [promoCode, setPromoCode] = useState("");
-  const [discount, setDiscount] = useState(0); // درصد تخفیف
+  const [discount, setDiscount] = useState(0);
   const [appliedCode, setAppliedCode] = useState("");
 
   const handleApplyPromo = () => {
@@ -46,6 +49,7 @@ function CartPage() {
 
   // اگر سبد خرید خالیه
   if (cart.length === 0) {
+    const suggestedProducts = products ? products.slice(0, 4) : [];
     return (
       <div className="cart-page">
         <div className="container">
@@ -57,6 +61,21 @@ function CartPage() {
               Start Shopping
             </Link>
           </div>
+
+          <section className="section suggested-products">
+            <div className="section__header">
+              <h2 className="section__title">You Might Also Like</h2>
+            </div>
+            <div className="products-grid">
+              {suggestedProducts.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onAddToCart={addToCart}
+                />
+              ))}
+            </div>
+          </section>
         </div>
       </div>
     );
@@ -77,21 +96,18 @@ function CartPage() {
         </div>
 
         <div className="cart-layout">
-          {/* لیست محصولات */}
           <div className="cart-items">
             {cart.map((item) => (
               <div key={item.id} className="cart-item">
                 <Link to={`/product/${item.id}`} className="cart-item__image">
                   <img src={item.image} alt={item.name} />
                 </Link>
-
                 <div className="cart-item__info">
                   <Link to={`/product/${item.id}`} className="cart-item__name">
                     {item.name}
                   </Link>
                   <p className="cart-item__price">${item.price}</p>
                 </div>
-
                 <div className="cart-item__quantity">
                   <button
                     onClick={() => decreaseCart(item.id)}
@@ -107,11 +123,9 @@ function CartPage() {
                     <Plus size={14} />
                   </button>
                 </div>
-
                 <p className="cart-item__total">
                   ${(item.price * item.quantity).toFixed(2)}
                 </p>
-
                 <button
                   className="cart-item__remove"
                   onClick={() => removeFromCart(item.id)}
@@ -123,11 +137,9 @@ function CartPage() {
             ))}
           </div>
 
-          {/* خلاصه سفارش */}
           <div className="cart-summary">
             <h3 className="cart-summary__title">Order Summary</h3>
 
-            {/* کد تخفیف */}
             <div className="promo-code-section">
               <div className="promo-input-group">
                 <Tag size={16} className="promo-icon" />
@@ -161,33 +173,27 @@ function CartPage() {
               <span>Subtotal</span>
               <span>${cartTotal.toFixed(2)}</span>
             </div>
-
             {discount > 0 && (
               <div className="cart-summary__row discount-row">
                 <span>Discount ({discount}%)</span>
                 <span>-${discountAmount.toFixed(2)}</span>
               </div>
             )}
-
             <div className="cart-summary__row">
               <span>Shipping</span>
               <span className="free">Free</span>
             </div>
-
             <div className="cart-summary__divider" />
-
             <div className="cart-summary__row cart-summary__total">
               <span>Total</span>
               <span>${finalTotal.toFixed(2)}</span>
             </div>
-
             <button
               className="btn btn--primary cart-summary__checkout"
               onClick={() => navigate("/checkout")}
             >
               Checkout <ShieldCheck size={18} />
             </button>
-
             <div className="cart-summary__trust">
               <div className="trust-item">
                 <Truck size={16} />

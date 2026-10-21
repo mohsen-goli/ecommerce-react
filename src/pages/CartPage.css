@@ -48,7 +48,6 @@
   color: #d9534f;
 }
 
-/* چیدمان */
 .cart-layout {
   display: grid;
   grid-template-columns: 1fr 380px;
@@ -56,7 +55,6 @@
   align-items: start;
 }
 
-/* لیست محصولات */
 .cart-items {
   display: flex;
   flex-direction: column;
@@ -111,7 +109,6 @@
 .cart-item__name:hover {
   color: var(--color-primary);
 }
-
 .cart-item__price {
   font-size: 14px;
   color: var(--color-text-muted);
@@ -138,7 +135,6 @@
 .cart-item__quantity button:hover {
   background-color: var(--color-bg-secondary);
 }
-
 .cart-item__quantity span {
   width: 32px;
   text-align: center;
@@ -153,18 +149,15 @@
   min-width: 80px;
   text-align: right;
 }
-
 .cart-item__remove {
   color: var(--color-text-muted);
   transition: color 0.2s;
   padding: 8px;
 }
-
 .cart-item__remove:hover {
   color: #d9534f;
 }
 
-/* خلاصه سفارش */
 .cart-summary {
   background-color: var(--color-white);
   padding: var(--spacing-xl);
@@ -179,7 +172,6 @@
   margin-bottom: var(--spacing-lg);
   color: var(--color-text-main);
 }
-
 .cart-summary__row {
   display: flex;
   justify-content: space-between;
@@ -187,24 +179,20 @@
   color: var(--color-text-muted);
   margin-bottom: var(--spacing-md);
 }
-
 .cart-summary__row .free {
   color: #4caf50;
   font-weight: 600;
 }
-
 .cart-summary__divider {
   height: 1px;
   background-color: var(--color-border);
   margin: var(--spacing-md) 0;
 }
-
 .cart-summary__total {
   font-size: 18px;
   font-weight: 700;
   color: var(--color-text-main);
 }
-
 .cart-summary__checkout {
   width: 100%;
   margin-top: var(--spacing-lg);
@@ -228,7 +216,6 @@
   color: var(--color-text-muted);
 }
 
-/* سبد خالی */
 .empty-cart {
   text-align: center;
   padding: var(--spacing-2xl) 0;
@@ -242,66 +229,16 @@
   color: var(--color-text-muted);
   opacity: 0.5;
 }
-
 .empty-cart h2 {
   font-size: 28px;
   color: var(--color-text-main);
 }
-
 .empty-cart p {
   color: var(--color-text-muted);
   margin-bottom: var(--spacing-lg);
 }
 
-/* --- ریسپانسیو --- */
-@media (max-width: 900px) {
-  .cart-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .cart-summary {
-    position: static;
-  }
-
-  .cart-page__title {
-    font-size: 32px;
-  }
-}
-
-@media (max-width: 600px) {
-  .cart-item {
-    grid-template-columns: 80px 1fr auto;
-    grid-template-areas:
-      "image info remove"
-      "image quantity total";
-  }
-
-  .cart-item__image {
-    grid-area: image;
-    width: 80px;
-    height: 80px;
-  }
-  .cart-item__info {
-    grid-area: info;
-  }
-  .cart-item__quantity {
-    grid-area: quantity;
-  }
-  .cart-item__total {
-    grid-area: total;
-    text-align: left;
-  }
-  .cart-item__remove {
-    grid-area: remove;
-  }
-
-  .cart-page__header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--spacing-sm);
-  }
-}
-/* --- کد تخفیف --- */
+/* کد تخفیف */
 .promo-code-section {
   margin-bottom: var(--spacing-lg);
   padding-bottom: var(--spacing-lg);
@@ -322,7 +259,6 @@
   color: var(--color-text-muted);
   flex-shrink: 0;
 }
-
 .promo-input {
   flex: 1;
   border: none;
@@ -333,7 +269,6 @@
   color: var(--color-text-main);
   padding: 8px 0;
 }
-
 .promo-input::placeholder {
   color: var(--color-text-muted);
 }
@@ -370,8 +305,55 @@
   font-weight: 600;
   text-decoration: underline;
 }
-
 .discount-row {
   color: #4caf50 !important;
   font-weight: 600;
+}
+
+/* محصولات پیشنهادی */
+.suggested-products {
+  margin-top: var(--spacing-2xl);
+}
+
+/* ریسپانسیو */
+@media (max-width: 900px) {
+  .cart-layout {
+    grid-template-columns: 1fr;
+  }
+  .cart-summary {
+    position: static;
+  }
+  .cart-page__title {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cart-item {
+    grid-template-columns: 80px 1fr auto;
+    grid-template-areas: "image info remove" "image quantity total";
+  }
+  .cart-item__image {
+    grid-area: image;
+    width: 80px;
+    height: 80px;
+  }
+  .cart-item__info {
+    grid-area: info;
+  }
+  .cart-item__quantity {
+    grid-area: quantity;
+  }
+  .cart-item__total {
+    grid-area: total;
+    text-align: left;
+  }
+  .cart-item__remove {
+    grid-area: remove;
+  }
+  .cart-page__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
 }
