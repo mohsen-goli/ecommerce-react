@@ -19,7 +19,6 @@
   margin-bottom: var(--spacing-xl);
 }
 
-/* کانتینر اسلایدر */
 .brands-slider-container {
   overflow: hidden;
   position: relative;
@@ -27,7 +26,6 @@
   padding: var(--spacing-md) 0;
 }
 
-/* ردیف متحرک برندها */
 .brands-track {
   display: flex;
   align-items: center;
@@ -36,7 +34,6 @@
   width: max-content;
 }
 
-/* هر برند */
 .brand-slide {
   display: flex;
   align-items: center;
@@ -51,7 +48,6 @@
   opacity: 1;
 }
 
-/* اسم برند */
 .brand-name {
   font-family: var(--font-serif);
   font-size: 22px;
@@ -59,4 +55,24 @@
   color: var(--color-text-main);
   letter-spacing: 1px;
   white-space: nowrap;
+}
+
+/* 👇 ریسپانسیو برای موبایل */
+@media (max-width: 768px) {
+  .brands-section {
+    padding: var(--spacing-md) 0;
+  }
+  .brands-title {
+    font-size: 9px;
+    margin-bottom: var(--spacing-md);
+  }
+  .brand-name {
+    font-size: 14px;
+  }
+  .brands-track {
+    gap: var(--spacing-md);
+  }
+  .brand-slide {
+    padding: 0 var(--spacing-xs);
+  }
 }

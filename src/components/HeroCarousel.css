@@ -20,7 +20,6 @@
   background-repeat: no-repeat;
 }
 
-/* گرادیان افقی برای دسکتاپ */
 .hero-carousel-bg__overlay {
   position: absolute;
   top: 0;
@@ -36,7 +35,6 @@
   z-index: 1;
 }
 
-/* نقطه‌های پایین */
 .hero-carousel-bg__dots {
   position: absolute;
   bottom: 30px;
@@ -67,17 +65,15 @@
   border-radius: 10px;
 }
 
-/* --- ریسپانسیو برای موبایل --- */
 @media (max-width: 900px) {
   .hero-carousel-bg__overlay {
     background: linear-gradient(
       180deg,
-      rgba(253, 251, 247, 0.6) 0%,
-      rgba(253, 251, 247, 0.9) 50%,
-      rgba(253, 251, 247, 0.6) 100%
+      rgba(253, 251, 247, 0.4) 0%,
+      rgba(253, 251, 247, 0.8) 50%,
+      rgba(253, 251, 247, 0.4) 100%
     );
   }
-
   .hero-carousel-bg__dots {
     bottom: 20px;
     right: 50%;
