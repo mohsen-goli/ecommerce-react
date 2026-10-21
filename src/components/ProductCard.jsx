@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ShoppingBag, Star, Heart } from "lucide-react";
 import { useToast } from "./ToastProvider";
 import { useWishlist } from "../context/WishlistContext";
+import "./ProductCard.css";
 
 function ProductCard({ product, onAddToCart }) {
   const { showSuccess, showWishlist } = useToast();
@@ -32,10 +33,11 @@ function ProductCard({ product, onAddToCart }) {
 
   return (
     <motion.div
+      className="product-card"
       whileHover={{ y: -8 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
     >
-      <Link to={`/product/${product.id}`} className="product-card">
+      <Link to={`/product/${product.id}`} className="product-card__link">
         <div className="product-image">
           <img src={product.image} alt={product.name} />
 

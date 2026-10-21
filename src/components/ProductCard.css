@@ -2,7 +2,8 @@
 .product-card {
   display: flex !important;
   flex-direction: column !important;
-  height: 100% !important; /* 👈 این خط حیاتی است */
+  height: 100% !important;
+  width: 100% !important;
   background-color: var(--color-white);
   border-radius: 12px;
   overflow: hidden;
@@ -14,12 +15,22 @@
   box-shadow: var(--shadow-md);
 }
 
+.product-card__link {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  width: 100% !important;
+  text-decoration: none;
+  color: inherit;
+}
+
 .product-image {
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
   background-color: var(--color-bg-secondary);
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .product-image img {
@@ -53,7 +64,7 @@
   padding: var(--spacing-md);
   display: flex !important;
   flex-direction: column !important;
-  flex-grow: 1 !important; /* 👈 این هم مهم است */
+  flex-grow: 1 !important;
 }
 
 .product-info h3 {
@@ -83,7 +94,7 @@
 }
 
 .add-to-cart-button {
-  margin-top: auto !important; /* 👈 این دکمه رو می‌چسبونه به پایین */
+  margin-top: auto !important;
   width: 100%;
   padding: 10px;
   background-color: transparent;
