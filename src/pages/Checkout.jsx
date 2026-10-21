@@ -1,165 +1,305 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, CreditCard, Lock, ShieldCheck } from "lucide-react";
 import { useCart } from "../context/CartContext";
-import { useToast } from "../components/ToastProvider";
+import "./Checkout.css";
 
 function Checkout() {
   const { cart, cartTotal, clearCart } = useCart();
-  const { showSuccess } = useToast();
   const navigate = useNavigate();
-
-  const [form, setForm] = useState({
-    fullName: "",
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
     address: "",
     city: "",
     postalCode: "",
+    cardNumber: "",
+    expiry: "",
+    cvv: "",
   });
+  const [errors, setErrors] = useState({});
 
-  function handleChange(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    if (cart.length === 0) return;
-
-    console.log("Order:", { customer: form, items: cart, total: cartTotal });
-
-    showSuccess("Order placed successfully! 🌹");
-
-    setTimeout(() => {
-      clearCart();
-      navigate("/success");
-    }, 600);
-  }
-
+  // اگر سبد خالی بود
   if (cart.length === 0) {
     return (
-      <div className="not-found">
-        <h2>Your cart is empty</h2>
-        <Link to="/" className="btn-primary">
-          Back to Shop
-        </Link>
+      <div className="checkout-page">
+        <div className="container">
+          <div className="empty-cart">
+            <h2>Your cart is empty</h2>
+            <p>Add some products before checking out.</p>
+            <Link to="/" className="btn btn--primary">
+              Start Shopping
+            </Link>
+          </div>
+        </div>
       </div>
     );
   }
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: "" });
+    }
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.firstName.trim()) newErrors.firstName = "Required";
+    if (!formData.lastName.trim()) newErrors.lastName = "Required";
+    if (!formData.email.includes("@")) newErrors.email = "Invalid email";
+    if (formData.phone.length < 10) newErrors.phone = "Invalid phone";
+    if (!formData.address.trim()) newErrors.address = "Required";
+    if (!formData.city.trim()) newErrors.city = "Required";
+    if (formData.postalCode.length < 5) newErrors.postalCode = "Invalid";
+    if (formData.cardNumber.replace(/\s/g, "").length < 16)
+      newErrors.cardNumber = "Invalid card";
+    if (!formData.expiry) newErrors.expiry = "Required";
+    if (formData.cvv.length < 3) newErrors.cvv = "Invalid CVV";
+    return newErrors;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newErrors = validate();
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setIsSubmitting(true);
+    setTimeout(() => {
+      clearCart();
+      navigate("/success");
+    }, 1500);
+  };
+
   return (
     <div className="checkout-page">
-      <Link to="/cart" className="back-link">
-        <ArrowLeft size={18} /> Back to Cart
-      </Link>
+      <div className="container">
+        <Link to="/cart" className="back-link">
+          <ArrowLeft size={18} /> Back to Cart
+        </Link>
 
-      <h1>Checkout</h1>
+        <h1 className="checkout-title">Checkout</h1>
 
-      <div className="checkout-layout">
-        <form className="checkout-form" onSubmit={handleSubmit}>
-          <h3>Shipping Information</h3>
-
-          <div className="form-row">
-            <label>
-              Full Name
-              <input
-                name="fullName"
-                value={form.fullName}
-                onChange={handleChange}
-                required
-                placeholder="Sara Ahmadi"
-              />
-            </label>
-          </div>
-
-          <div className="form-row two-cols">
-            <label>
-              Email
-              <input
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-                required
-                placeholder="sara@example.com"
-              />
-            </label>
-
-            <label>
-              Phone
-              <input
-                name="phone"
-                value={form.phone}
-                onChange={handleChange}
-                required
-                placeholder="0912 345 6789"
-              />
-            </label>
-          </div>
-
-          <div className="form-row">
-            <label>
-              Address
-              <input
-                name="address"
-                value={form.address}
-                onChange={handleChange}
-                required
-                placeholder="Street, building, unit..."
-              />
-            </label>
-          </div>
-
-          <div className="form-row two-cols">
-            <label>
-              City
-              <input
-                name="city"
-                value={form.city}
-                onChange={handleChange}
-                required
-                placeholder="Tehran"
-              />
-            </label>
-
-            <label>
-              Postal Code
-              <input
-                name="postalCode"
-                value={form.postalCode}
-                onChange={handleChange}
-                required
-                placeholder="1234567890"
-              />
-            </label>
-          </div>
-
-          <button type="submit" className="btn-primary btn-large">
-            Place Order — ${cartTotal.toFixed(2)}
-          </button>
-        </form>
-
-        <aside className="checkout-summary">
-          <h3>Your Order</h3>
-
-          {cart.map((item) => (
-            <div key={item.id} className="checkout-item">
-              <img src={item.image} alt={item.name} />
-              <div>
-                <p>{item.name}</p>
-                <p className="muted">
-                  {item.quantity} × ${item.price}
-                </p>
+        <div className="checkout-layout">
+          {/* فرم */}
+          <form className="checkout-form" onSubmit={handleSubmit}>
+            {/* اطلاعات شخصی */}
+            <div className="form-section">
+              <h3 className="form-section__title">Contact Information</h3>
+              <div className="form-grid">
+                <div className="form-field">
+                  <label>First Name</label>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    className={errors.firstName ? "error" : ""}
+                  />
+                  {errors.firstName && (
+                    <span className="error-text">{errors.firstName}</span>
+                  )}
+                </div>
+                <div className="form-field">
+                  <label>Last Name</label>
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    className={errors.lastName ? "error" : ""}
+                  />
+                  {errors.lastName && (
+                    <span className="error-text">{errors.lastName}</span>
+                  )}
+                </div>
+                <div className="form-field">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className={errors.email ? "error" : ""}
+                  />
+                  {errors.email && (
+                    <span className="error-text">{errors.email}</span>
+                  )}
+                </div>
+                <div className="form-field">
+                  <label>Phone</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className={errors.phone ? "error" : ""}
+                  />
+                  {errors.phone && (
+                    <span className="error-text">{errors.phone}</span>
+                  )}
+                </div>
               </div>
             </div>
-          ))}
 
-          <div className="summary-row total">
-            <span>Total</span>
-            <span>${cartTotal.toFixed(2)}</span>
+            {/* آدرس */}
+            <div className="form-section">
+              <h3 className="form-section__title">Shipping Address</h3>
+              <div className="form-grid">
+                <div className="form-field form-field--full">
+                  <label>Address</label>
+                  <input
+                    type="text"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleChange}
+                    className={errors.address ? "error" : ""}
+                  />
+                  {errors.address && (
+                    <span className="error-text">{errors.address}</span>
+                  )}
+                </div>
+                <div className="form-field">
+                  <label>City</label>
+                  <input
+                    type="text"
+                    name="city"
+                    value={formData.city}
+                    onChange={handleChange}
+                    className={errors.city ? "error" : ""}
+                  />
+                  {errors.city && (
+                    <span className="error-text">{errors.city}</span>
+                  )}
+                </div>
+                <div className="form-field">
+                  <label>Postal Code</label>
+                  <input
+                    type="text"
+                    name="postalCode"
+                    value={formData.postalCode}
+                    onChange={handleChange}
+                    className={errors.postalCode ? "error" : ""}
+                  />
+                  {errors.postalCode && (
+                    <span className="error-text">{errors.postalCode}</span>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* پرداخت */}
+            <div className="form-section">
+              <h3 className="form-section__title">
+                <CreditCard size={20} /> Payment Details
+              </h3>
+              <div className="form-grid">
+                <div className="form-field form-field--full">
+                  <label>Card Number</label>
+                  <input
+                    type="text"
+                    name="cardNumber"
+                    placeholder="1234 5678 9012 3456"
+                    value={formData.cardNumber}
+                    onChange={handleChange}
+                    className={errors.cardNumber ? "error" : ""}
+                  />
+                  {errors.cardNumber && (
+                    <span className="error-text">{errors.cardNumber}</span>
+                  )}
+                </div>
+                <div className="form-field">
+                  <label>Expiry Date</label>
+                  <input
+                    type="text"
+                    name="expiry"
+                    placeholder="MM/YY"
+                    value={formData.expiry}
+                    onChange={handleChange}
+                    className={errors.expiry ? "error" : ""}
+                  />
+                  {errors.expiry && (
+                    <span className="error-text">{errors.expiry}</span>
+                  )}
+                </div>
+                <div className="form-field">
+                  <label>CVV</label>
+                  <input
+                    type="text"
+                    name="cvv"
+                    placeholder="123"
+                    value={formData.cvv}
+                    onChange={handleChange}
+                    className={errors.cvv ? "error" : ""}
+                  />
+                  {errors.cvv && (
+                    <span className="error-text">{errors.cvv}</span>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="btn btn--primary checkout-submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting
+                ? "Processing..."
+                : `Place Order - $${cartTotal.toFixed(2)}`}
+              <Lock size={18} />
+            </button>
+          </form>
+
+          {/* خلاصه سفارش */}
+          <div className="checkout-summary">
+            <h3>Order Summary</h3>
+            <div className="summary-items">
+              {cart.map((item) => (
+                <div key={item.id} className="summary-item">
+                  <div className="summary-item__image">
+                    <img src={item.image} alt={item.name} />
+                    <span className="summary-item__qty">{item.quantity}</span>
+                  </div>
+                  <div className="summary-item__info">
+                    <p>{item.name}</p>
+                    <span>${(item.price * item.quantity).toFixed(2)}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="summary-divider" />
+
+            <div className="summary-row">
+              <span>Subtotal</span>
+              <span>${cartTotal.toFixed(2)}</span>
+            </div>
+            <div className="summary-row">
+              <span>Shipping</span>
+              <span className="free">Free</span>
+            </div>
+
+            <div className="summary-divider" />
+
+            <div className="summary-row summary-total">
+              <span>Total</span>
+              <span>${cartTotal.toFixed(2)}</span>
+            </div>
+
+            <div className="summary-trust">
+              <ShieldCheck size={16} />
+              <span>Secure 256-bit SSL encrypted payment</span>
+            </div>
           </div>
-        </aside>
+        </div>
       </div>
     </div>
   );
